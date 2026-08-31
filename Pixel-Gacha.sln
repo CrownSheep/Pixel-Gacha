@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Pixel-Gacha\Web\Web.csproj", "{AAE34183-0740-401F-A17F-A89B10BA37CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game", "Pixel-Gacha\Game\Game.csproj", "{BB6F8167-D776-4CCC-AAB1-2BC372146431}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Desktop", "Pixel-Gacha\Desktop\Desktop.csproj", "{C73E1CD3-2A75-49E6-9D11-EB1083CA5D88}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AAE34183-0740-401F-A17F-A89B10BA37CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAE34183-0740-401F-A17F-A89B10BA37CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAE34183-0740-401F-A17F-A89B10BA37CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAE34183-0740-401F-A17F-A89B10BA37CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB6F8167-D776-4CCC-AAB1-2BC372146431}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB6F8167-D776-4CCC-AAB1-2BC372146431}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB6F8167-D776-4CCC-AAB1-2BC372146431}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB6F8167-D776-4CCC-AAB1-2BC372146431}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C73E1CD3-2A75-49E6-9D11-EB1083CA5D88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C73E1CD3-2A75-49E6-9D11-EB1083CA5D88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C73E1CD3-2A75-49E6-9D11-EB1083CA5D88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C73E1CD3-2A75-49E6-9D11-EB1083CA5D88}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

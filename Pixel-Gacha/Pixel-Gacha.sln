@@ -1,0 +1,60 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36930.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Pixel-Gacha.Platforms", "Pixel-Gacha.Platforms", "{56CED46E-C145-48F5-A808-799DCA8A8912}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pixel-Gacha.Game", "Pixel-Gacha.Game\Pixel-Gacha.Game.csproj", "{BB6F8167-D776-4CCC-AAB1-2BC372146431}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pixel-Gacha.SDL2.GL", "Pixel-Gacha.SDL2.GL\Pixel-Gacha.SDL2.GL.csproj", "{C73E1CD3-2A75-49E6-9D11-EB1083CA5D88}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pixel-Gacha.Blazor.GL", "Pixel-Gacha.Blazor.GL\Pixel-Gacha.Blazor.GL.csproj", "{AAE34183-0740-401F-A17F-A89B10BA37CB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BB6F8167-D776-4CCC-AAB1-2BC372146431}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB6F8167-D776-4CCC-AAB1-2BC372146431}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB6F8167-D776-4CCC-AAB1-2BC372146431}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB6F8167-D776-4CCC-AAB1-2BC372146431}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04F32BA5-9F97-450D-BF0C-7EFEA4CBAB5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04F32BA5-9F97-450D-BF0C-7EFEA4CBAB5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04F32BA5-9F97-450D-BF0C-7EFEA4CBAB5A}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{04F32BA5-9F97-450D-BF0C-7EFEA4CBAB5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04F32BA5-9F97-450D-BF0C-7EFEA4CBAB5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04F32BA5-9F97-450D-BF0C-7EFEA4CBAB5A}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{8F099DDA-C75A-4A53-9859-A3BE4E986562}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F099DDA-C75A-4A53-9859-A3BE4E986562}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F099DDA-C75A-4A53-9859-A3BE4E986562}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F099DDA-C75A-4A53-9859-A3BE4E986562}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B18059F-057A-4425-B110-1344C860AA8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B18059F-057A-4425-B110-1344C860AA8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B18059F-057A-4425-B110-1344C860AA8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B18059F-057A-4425-B110-1344C860AA8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C73E1CD3-2A75-49E6-9D11-EB1083CA5D88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C73E1CD3-2A75-49E6-9D11-EB1083CA5D88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C73E1CD3-2A75-49E6-9D11-EB1083CA5D88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C73E1CD3-2A75-49E6-9D11-EB1083CA5D88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAE34183-0740-401F-A17F-A89B10BA37CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAE34183-0740-401F-A17F-A89B10BA37CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAE34183-0740-401F-A17F-A89B10BA37CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAE34183-0740-401F-A17F-A89B10BA37CB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{04F32BA5-9F97-450D-BF0C-7EFEA4CBAB5A} = {56CED46E-C145-48F5-A808-799DCA8A8912}
+		{8F099DDA-C75A-4A53-9859-A3BE4E986562} = {56CED46E-C145-48F5-A808-799DCA8A8912}
+		{6B18059F-057A-4425-B110-1344C860AA8F} = {56CED46E-C145-48F5-A808-799DCA8A8912}
+		{C73E1CD3-2A75-49E6-9D11-EB1083CA5D88} = {56CED46E-C145-48F5-A808-799DCA8A8912}
+		{AAE34183-0740-401F-A17F-A89B10BA37CB} = {56CED46E-C145-48F5-A808-799DCA8A8912}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6C8C7F0D-91CC-4FB2-BCC8-460671CBE353}
+	EndGlobalSection
+EndGlobal
