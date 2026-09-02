@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 
-namespace Pixel_Gacha;
+namespace PixelGacha;
 
 public interface IUpdatable
 {
