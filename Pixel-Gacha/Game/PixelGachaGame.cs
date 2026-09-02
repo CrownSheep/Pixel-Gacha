@@ -2,8 +2,8 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoGame.Extended.BitmapFonts;
 using MonoGame.Extended.Input;
-using Pixel_Gacha;
 
 namespace PixelGacha;
 
@@ -14,6 +14,8 @@ public class PixelGachaGame : Game
 {
     protected GraphicsDeviceManager graphics;
     protected SpriteBatch spriteBatch;
+    
+    private BitmapFont font;
     
     protected DrawingGrid grid;
 
@@ -50,7 +52,8 @@ public class PixelGachaGame : Game
     {
         // Create a new SpriteBatch, which can be used to draw textures.
         spriteBatch = new SpriteBatch(GraphicsDevice);
-        SpriteFont font = Content.Load<SpriteFont>("font");
+        BitmapFont font = Content.Load<BitmapFont>("font");
+        this.font = font;
 
         grid = new DrawingGrid(GraphicsDevice);
     }

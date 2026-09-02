@@ -10,11 +10,17 @@
 
 #-------------------------------- References --------------------------------#
 
+/reference:pipeline-ref\KNI.Extended.Content.Pipeline.dll
 
 #---------------------------------- Content ---------------------------------#
 
-#begin font.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/build:font.spritefont
+#begin font.fnt
+/importer:BitmapFontImporter
+/processor:BitmapFontProcessor
+/build:font.fnt
+
+#begin font_0.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:font_0.png
 
