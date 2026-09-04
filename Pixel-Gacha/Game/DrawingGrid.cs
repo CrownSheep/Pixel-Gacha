@@ -39,11 +39,15 @@ public class DrawingGrid : IUpdatable, IDrawable
     {
         mouse = MouseExtended.GetState();
         
-        if (mouse.IsButtonDown(MouseButton.Left)) {
-            int snappedX = (int)MathF.Floor((float)mouse.X / SCALE) * SCALE;
-            int snappedY = (int)MathF.Floor((float)mouse.Y / SCALE) * SCALE;
+        int snappedX = (int)MathF.Floor((float)mouse.X / SCALE) * SCALE;
+        int snappedY = (int)MathF.Floor((float)mouse.Y / SCALE) * SCALE;
 
+        if (mouse.IsButtonDown(MouseButton.Left)) {
             SetPixel((snappedX - OFFSET) / SCALE, (snappedY) / SCALE, Color);
+        }
+        else if(mouse.IsButtonDown(MouseButton.Right))
+        {
+            SetPixel((snappedX - OFFSET) / SCALE, (snappedY) / SCALE, Color.Transparent);
         }
 
         gridTexture.SetData(pixelData);
