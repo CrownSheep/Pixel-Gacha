@@ -51,11 +51,11 @@ public class DrawingGrid : IUpdatable, IDrawable
 
     public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
     {
-        if (!mouse.IsButtonDown(MouseButton.Left))
-        {
-            int snappedX = (int)MathF.Floor((float)mouse.X / SCALE) * SCALE;
-            int snappedY = (int)MathF.Floor((float)mouse.Y / SCALE) * SCALE;
+        int snappedX = (int)MathF.Floor((float)mouse.X / SCALE) * SCALE;
+        int snappedY = (int)MathF.Floor((float)mouse.Y / SCALE) * SCALE;
 
+        if (!mouse.IsButtonDown(MouseButton.Left) && InBounds((snappedX - OFFSET) / SCALE, (snappedY) / SCALE))
+        {
             spriteBatch.FillRectangle(new Rectangle(snappedX, snappedY, SCALE, SCALE), Color * 0.3f);
         }
 
@@ -65,9 +65,14 @@ public class DrawingGrid : IUpdatable, IDrawable
     
     public void SetPixel(int x, int y, Color color)
     {
-        if (x >= 0 && x < GridWidth && y >= 0 && y < GridHeight)
+        if (InBounds(x, y))
         {
             pixelData[x + y * GridWidth] = color;
         }
+    }
+
+    private bool InBounds(int x, int y)
+    {
+        return x >= 0 && x < GridWidth && y >= 0 && y < GridHeight;
     }
 }
