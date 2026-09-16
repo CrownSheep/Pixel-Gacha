@@ -16,13 +16,13 @@ public static class PackCatalog
         });
 
     public static readonly PackType Premium = new(
-        "Premium Pack", cost: 120, cardCount: 4, themeColor: new Color(40, 90, 200),
+        "Premium Pack", cost: 130, cardCount: 4, themeColor: new Color(40, 90, 200),
         rarityWeights: new Dictionary<ColorRarity, int>
         {
-            { ColorRarity.Common, 30 },
+            { ColorRarity.Common, 32 },
             { ColorRarity.Rare, 40 },
             { ColorRarity.Epic, 22 },
-            { ColorRarity.Legendary, 8 },
+            { ColorRarity.Legendary, 5 },
         });
 
     public static readonly PackType Legendary = new(
@@ -30,8 +30,8 @@ public static class PackCatalog
         rarityWeights: new Dictionary<ColorRarity, int>
         {
             { ColorRarity.Common, 1 },
-            { ColorRarity.Rare, 35 },
-            { ColorRarity.Epic, 49 },
+            { ColorRarity.Rare, 37 },
+            { ColorRarity.Epic, 45 },
             { ColorRarity.Legendary, 15 },
         });
 
