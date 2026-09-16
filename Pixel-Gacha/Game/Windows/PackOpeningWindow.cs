@@ -24,16 +24,19 @@ public class PackOpeningWindow : IPanel
     private const int PACK_ICON_HEIGHT = 90;
     private const int SELECTOR_HEIGHT = 40;
     private const int SELECTOR_SPACING = 6;
+    private const int INFO_BUTTON_SIZE = 20;
 
     private PlayerInventory inventory;
     private BitmapFont font;
     private Rectangle bounds;
     private Rectangle openButtonRect;
     private Rectangle packIconRect;
+    private Rectangle infoButtonRect;
     private List<Rectangle> selectorRects = new();
     private int columns = 1;
 
     private PackType selectedPack = PackCatalog.Basic;
+    private bool showOdds = false;
 
     private enum AnimState { Idle, Shaking, Revealing, Done }
     private AnimState state = AnimState.Idle;
@@ -68,6 +71,7 @@ public class PackOpeningWindow : IPanel
         }
 
         packIconRect = new Rectangle(centerX - PACK_ICON_WIDTH / 2, selectorY + SELECTOR_HEIGHT + 20, PACK_ICON_WIDTH, PACK_ICON_HEIGHT);
+        infoButtonRect = new Rectangle(packIconRect.Right + 10, packIconRect.Y, INFO_BUTTON_SIZE, INFO_BUTTON_SIZE);
         openButtonRect = new Rectangle(centerX - 90, packIconRect.Bottom + 16, 180, 44);
     }
 
@@ -82,36 +86,43 @@ public class PackOpeningWindow : IPanel
             case AnimState.Idle:
                 if (mouse.WasButtonPressed(MouseButton.Left))
                 {
+                    bool clickedSomethingKnown = false;
+
                     for (int i = 0; i < selectorRects.Count; i++)
                     {
                         if (selectorRects[i].Contains(mouse.Position))
                         {
                             selectedPack = PackCatalog.All[i];
+                            showOdds = false;
+                            clickedSomethingKnown = true;
                             break;
                         }
                     }
-                }
 
-                if (mouse.WasButtonPressed(MouseButton.Left) && openButtonRect.Contains(mouse.Position))
-                {
-                    if (inventory.SpendCurrency(selectedPack.Cost))
+                    if (!clickedSomethingKnown && infoButtonRect.Contains(mouse.Position))
                     {
-                        pendingResults = GachaService.OpenPack(selectedPack);
-                        pendingIsNew = pendingResults.Select(c => !inventory.IsOwned(c.Name)).ToList();
-                        revealIndex = 0;
-                        stateTimer = 0f;
-                        state = AnimState.Shaking;
+                        showOdds = !showOdds;
+                        clickedSomethingKnown = true;
+                    }
+
+                    if (!clickedSomethingKnown && openButtonRect.Contains(mouse.Position))
+                    {
+                        if (inventory.SpendCurrency(selectedPack.Cost))
+                        {
+                            pendingResults = GachaService.OpenPack(selectedPack);
+                            pendingIsNew = pendingResults.Select(c => !inventory.IsOwned(c.Name)).ToList();
+                            revealIndex = 0;
+                            stateTimer = 0f;
+                            state = AnimState.Shaking;
+                            showOdds = false;
+                        }
                     }
                 }
                 break;
 
             case AnimState.Shaking:
                 stateTimer += dt;
-                if (stateTimer >= SHAKE_DURATION)
-                {
-                    stateTimer = 0f;
-                    state = AnimState.Revealing;
-                }
+                if (stateTimer >= SHAKE_DURATION) { stateTimer = 0f; state = AnimState.Revealing; }
                 break;
 
             case AnimState.Revealing:
@@ -121,8 +132,7 @@ public class PackOpeningWindow : IPanel
                     stateTimer = 0f;
                     inventory.AddColor(pendingResults[revealIndex]);
                     revealIndex++;
-                    if (revealIndex >= pendingResults.Count)
-                        state = AnimState.Done;
+                    if (revealIndex >= pendingResults.Count) state = AnimState.Done;
                 }
                 break;
 
@@ -141,6 +151,8 @@ public class PackOpeningWindow : IPanel
 
     public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
     {
+        spriteBatch.FillRectangle(bounds, new Color(245, 243, 248));
+        spriteBatch.DrawString(font, "Card Packs", new Vector2(bounds.X + PADDING, bounds.Y + PADDING), new Color(60, 50, 80));
         bool animating = state != AnimState.Idle;
 
         DrawPackSelector(spriteBatch, animating);
@@ -153,6 +165,7 @@ public class PackOpeningWindow : IPanel
         }
 
         DrawPackIcon(spriteBatch);
+        DrawInfoButton(spriteBatch, animating);
 
         bool canAfford = inventory.Currency >= selectedPack.Cost;
         var buttonColor = !canAfford && !animating ? Color.Gray : selectedPack.ThemeColor;
@@ -161,15 +174,67 @@ public class PackOpeningWindow : IPanel
 
         string buttonLabel = animating ? "..." : $"Open {selectedPack.Name} ({selectedPack.Cost}$)";
         Vector2 btnTextSize = font.MeasureString(buttonLabel);
-
         float scale = Math.Min(1f, (openButtonRect.Width - 12) / Math.Max(1f, btnTextSize.X));
         spriteBatch.DrawString(font, buttonLabel,
             new Vector2(openButtonRect.X + (openButtonRect.Width - btnTextSize.X * scale) / 2f,
                         openButtonRect.Y + (openButtonRect.Height - btnTextSize.Y * scale) / 2f),
             Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+        
+        if (showOdds && !animating)
+            DrawOddsBreakdown(spriteBatch);
 
         if (state == AnimState.Revealing || state == AnimState.Done)
             DrawRevealedCards(spriteBatch);
+    }
+
+    private void DrawInfoButton(SpriteBatch spriteBatch, bool disabled)
+    {
+        var color = disabled ? Color.Gray : ButtonUtil.GetColor(infoButtonRect, showOdds ? selectedPack.ThemeColor : new Color(220, 218, 225));
+        spriteBatch.FillRectangle(infoButtonRect, color);
+        spriteBatch.DrawRectangle(infoButtonRect, Color.Black, 1.5f);
+
+        string mark = "i";
+        Vector2 textSize = font.MeasureString(mark);
+        var textColor = showOdds ? Color.White : new Color(70, 70, 75);
+        spriteBatch.DrawString(font, mark, new Vector2(infoButtonRect.X + (infoButtonRect.Width - textSize.X) / 2f,
+                        infoButtonRect.Y + (infoButtonRect.Height - textSize.Y) / 2f), textColor);
+    }
+
+    private void DrawOddsBreakdown(SpriteBatch spriteBatch)
+    {
+        int totalWeight = selectedPack.RarityWeights.Values.Sum();
+        var nonZero = selectedPack.RarityWeights.Where(kv => kv.Value > 0).OrderByDescending(kv => kv.Value).ToList();
+
+        int rowHeight = 20;
+        int panelWidth = 170;
+        int panelHeight = 16 + nonZero.Count * rowHeight + 10;
+
+        var panelRect = new Rectangle(infoButtonRect.Right + 8, infoButtonRect.Y, panelWidth, panelHeight);
+
+        if (panelRect.Right > bounds.Right)
+            panelRect.X = infoButtonRect.X - panelWidth - 8;
+
+        spriteBatch.FillRectangle(panelRect, Color.White);
+        spriteBatch.DrawRectangle(panelRect, Color.Black, 1.5f);
+
+        spriteBatch.DrawString(font, "Pull rates:", new Vector2(panelRect.X + 8, panelRect.Y + 6), new Color(60, 50, 80));
+
+        int y = panelRect.Y + 22;
+        foreach (var (rarity, weight) in nonZero)
+        {
+            float pct = (float)weight / totalWeight * 100f;
+            var swatch = new Rectangle(panelRect.X + 8, y + 2, 10, 10);
+            spriteBatch.FillRectangle(swatch, RarityBorderColor(rarity));
+
+            spriteBatch.DrawString(font, rarity.ToString(), new Vector2(swatch.Right + 6, y), new Color(50, 50, 55));
+
+            string pctText = $"{pct:0.#}%";
+            Vector2 pctSize = font.MeasureString(pctText);
+            spriteBatch.DrawString(font, pctText,
+                new Vector2(panelRect.Right - 8 - pctSize.X, y), new Color(50, 50, 55));
+
+            y += rowHeight;
+        }
     }
 
     private void DrawPackSelector(SpriteBatch spriteBatch, bool disabled)
@@ -219,7 +284,7 @@ public class PackOpeningWindow : IPanel
             glow.Inflate(4, 4);
             spriteBatch.FillRectangle(glow, selectedPack.ThemeColor * (0.1f + pulse * 0.1f));
         }
-        
+
         spriteBatch.FillRectangle(rect, selectedPack.ThemeColor);
         var ribbon = new Rectangle(rect.X, rect.Y + rect.Height / 2 - 8, rect.Width, 16);
         spriteBatch.FillRectangle(ribbon, new Color(255, 210, 60));
