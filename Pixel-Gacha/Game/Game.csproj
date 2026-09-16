@@ -27,10 +27,29 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Compile Include="DrawingGrid.cs" />
+        <Compile Include="ButtonUtil.cs" />
+        <Compile Include="Canvas\CanvasToolbar.cs" />
+        <Compile Include="Canvas\DrawingCanvas.cs" />
+        <Compile Include="Color\ColorDatabase.cs" />
+        <Compile Include="Color\ColorRarity.cs" />
+        <Compile Include="Color\GachaColor.cs" />
+        <Compile Include="Gallery\ArtworkGallery.cs" />
+        <Compile Include="Gallery\SavedArtwork.cs" />
         <Compile Include="IDrawable.cs" />
         <Compile Include="IUpdatable.cs" />
+        <Compile Include="Layout\GameLayout.cs" />
+        <Compile Include="Layout\IPanel.cs" />
+        <Compile Include="Packs\GachaService.cs" />
+        <Compile Include="Packs\PackCatalog.cs" />
+        <Compile Include="Packs\PackType.cs" />
         <Compile Include="PixelGachaGame.cs" />
+        <Compile Include="PlayerInventory.cs" />
+        <Compile Include="Sidebar\Sidebar.cs" />
+        <Compile Include="Sidebar\SidebarTab.cs" />
+        <Compile Include="Windows\CollectionWindow.cs" />
+        <Compile Include="Windows\GalleryWindow.cs" />
+        <Compile Include="Windows\PackOpeningWindow.cs" />
+        <Compile Include="Windows\PaletteWindow.cs" />
     </ItemGroup>
 
 </Project>
