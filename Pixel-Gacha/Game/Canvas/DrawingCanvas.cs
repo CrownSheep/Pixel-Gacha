@@ -129,13 +129,16 @@ public class DrawingCanvas : IUpdatable, IDrawable
     {
         if (!InBounds(x, y)) return;
 
-        bool wasEmpty = pixelData[x + y * GridWidth] == Color.Transparent;
+        Color previousColor = pixelData[x + y * GridWidth];
+        bool isPainting = color != Color.Transparent;
+        bool colorChanged = previousColor != color;
+
         pixelData[x + y * GridWidth] = color;
 
-        if (wasEmpty)
+        if (isPainting && colorChanged)
         {
             var matchedColor = ColorDatabase.AllColors.FirstOrDefault(c => c.Value == DrawColor);
-    
+
             int ownedCount = 1;
             if (matchedColor != null && inventory.Owned.TryGetValue(matchedColor.Name, out int count))
             {
@@ -143,7 +146,6 @@ public class DrawingCanvas : IUpdatable, IDrawable
             }
 
             int totalReward = PlayerInventory.CURRENCY_PER_PIXEL * ownedCount;
-
             inventory.AddCurrency(totalReward);
         }
     }
