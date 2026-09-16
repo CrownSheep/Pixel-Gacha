@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using PixelGacha.Packs;
 
-namespace PixelGacha;
+namespace PixelGacha.Packs;
 
 public static class GachaService
 {
@@ -19,7 +18,7 @@ public static class GachaService
 
         foreach (var (rarity, weight) in packType.RarityWeights)
         {
-            if (weight <= 0) continue; // skip zero-weight rarities entirely, never eligible to be chosen
+            if (weight <= 0) continue;
             cumulative += weight;
             if (roll < cumulative)
             {
@@ -30,8 +29,6 @@ public static class GachaService
 
         var pool = ColorDatabase.ByRarity(chosenRarity).ToList();
 
-        // Guard: if a rarity tier has weight but ColorDatabase has no colors defined for it yet
-        // (e.g. you add a pack type before adding matching colors), fall back rather than crash.
         if (pool.Count == 0)
             pool = ColorDatabase.ByRarity(ColorRarity.Common).ToList();
 
